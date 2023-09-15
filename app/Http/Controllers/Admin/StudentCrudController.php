@@ -13,8 +13,12 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  */
 class StudentCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation {index as traitIndex;}
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation {
+        index as traitIndex;
+    }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
+    }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
@@ -33,6 +37,7 @@ class StudentCrudController extends CrudController
     {
         return $this->traitIndex();
     }
+
     protected function setupListOperation()
     {
         $this->crud->addColumn([
@@ -55,6 +60,7 @@ class StudentCrudController extends CrudController
             'label' => 'Year Level'
         ]);
     }
+
     protected function setupCreateOperation()
     {
         CRUD::setValidation(StudentRequest::class);
@@ -80,11 +86,21 @@ class StudentCrudController extends CrudController
             'type' => 'select_from_array',
             'options' => ['1st Year' => '1st Year', '2nd Year' => '2nd Year', '3rd Year' => '3rd Year', '4th Year' => '4th Year'],
         ]);
+
+        CRUD::addField([
+            'name' => 'student_subject',
+            'label' => 'Subjects',
+            'type' => 'select_pivot_table',
+            'entity' => 'subjects',
+            'model' => 'App\Models\Subject',
+            'attribute' => 'name',
+            'studentId' => $this->crud->getCurrentEntry()->id
+        ]);
     }
 
     protected function setupShowOperation()
     {
-        $this->autoSetupShowOperation();
+        $subjects = $this->crud->getCurrentEntry()->subjects;
 
         $this->crud->column([
             'name' => 'course.course',
@@ -92,10 +108,25 @@ class StudentCrudController extends CrudController
         ]);
 
         $this->crud->column([
-            'name' => 'subjects.name',
-            'label' => 'Subjects'
+            'name' => 'year_level',
+            'label' => 'Current Year Level'
+        ]);
+
+        $this->crud->column([
+            'name' => 'subjects',
+            'label' => 'Subjects',
+            'type' => 'custom_html',
+            'value' => view('vendor.backpack.custom.student-subject-show', compact('subjects'))->render()
         ]);
     }
+
+    public function update()
+    {
+        $request = $this->crud->getRequest();
+
+        dd($request->all());
+    }
+
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

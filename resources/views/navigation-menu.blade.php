@@ -17,7 +17,7 @@
                     </x-nav-link>
 
                     @if (auth()->user()->role === 'student')
-                        <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('grades')">
+                        <x-nav-link href="{{ route('grades') }}" :active="request()->routeIs('grades')">
                             {{ __('Grades') }}
                         </x-nav-link>
                     @endif
