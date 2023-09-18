@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('student_id');
             $table->integer('subject_id');
+            $table->integer('professor_id');
             $table->string('grade')->nullable();
             $table->enum('year_level', \App\Models\Student::STUDENT_YEAR_LEVEL);
             $table->timestamps();

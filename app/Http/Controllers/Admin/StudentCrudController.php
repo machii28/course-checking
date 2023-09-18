@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Operations\SetupSubjectOperation;
 use App\Http\Requests\StudentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -13,6 +14,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  */
 class StudentCrudController extends CrudController
 {
+    use SetupSubjectOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation {
         index as traitIndex;
     }
@@ -86,16 +88,6 @@ class StudentCrudController extends CrudController
             'type' => 'select_from_array',
             'options' => ['1st Year' => '1st Year', '2nd Year' => '2nd Year', '3rd Year' => '3rd Year', '4th Year' => '4th Year'],
         ]);
-
-        CRUD::addField([
-            'name' => 'student_subject',
-            'label' => 'Subjects',
-            'type' => 'select_pivot_table',
-            'entity' => 'subjects',
-            'model' => 'App\Models\Subject',
-            'attribute' => 'name',
-            'studentId' => $this->crud->getCurrentEntry()->id
-        ]);
     }
 
     protected function setupShowOperation()
@@ -118,13 +110,6 @@ class StudentCrudController extends CrudController
             'type' => 'custom_html',
             'value' => view('vendor.backpack.custom.student-subject-show', compact('subjects'))->render()
         ]);
-    }
-
-    public function update()
-    {
-        $request = $this->crud->getRequest();
-
-        dd($request->all());
     }
 
     protected function setupUpdateOperation()

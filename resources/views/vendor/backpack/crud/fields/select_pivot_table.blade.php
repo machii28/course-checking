@@ -2,6 +2,7 @@
     $field['value'] = old_empty_or_null($field['name'], '') ?? ($field['value'] ?? ($field['default'] ?? ''));
 
     $studentId = $field['studentId'];
+    $student = \App\Models\Student::find($studentId);
     $allSubjects = \App\Models\Subject::whereNotIn('id', $field['value']->pluck('id')->toArray())->get();
 @endphp
 
@@ -11,9 +12,9 @@
 
 <table class="table table-striped">
     <thead>
-    <td>Name</td>
-    <td>Actions</td>
-    </thead>
+        <td>Name</td>
+        <td>Actions</td>
+        </thead>
     <tbody>
     @foreach($field['value'] as $subject)
         <tr>
