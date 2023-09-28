@@ -21,6 +21,12 @@
                             {{ __('Grades') }}
                         </x-nav-link>
                     @endif
+
+                    @if (auth()->user()->role === 'professor')
+                        <x-nav-link href="{{ route('student') }}" :active="request()->routeIs('student')">
+                            {{ __('Students') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

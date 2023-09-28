@@ -95,6 +95,11 @@ class StudentCrudController extends CrudController
         $subjects = $this->crud->getCurrentEntry()->subjects;
 
         $this->crud->column([
+            'name' => 'user.name',
+            'label' => 'Student Name'
+        ]);
+
+        $this->crud->column([
             'name' => 'course.course',
             'label' => 'Course'
         ]);

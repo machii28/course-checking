@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,17 @@ Route::middleware([
     Route::get('/grades', [
         StudentController::class, 'index'
     ])->name('grades');
+
+    Route::post('/{gradeId}/save-grade', [
+        StudentController::class, 'saveGrade'
+    ])->name('grades.save');
+
+    Route::get('/students', [
+        ProfessorController::class, 'index'
+    ])->name('student');
+
+    Route::post('/{subjectId}/approve-grade', [
+        ProfessorController::class, 'approve'
+    ])->name('grade.approve');
 });
 
