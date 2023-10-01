@@ -52,7 +52,7 @@
                                                     <form method="POST" action="{{ route('grade.approve', ['subjectId' => $subject->id]) }}">
                                                         {{ csrf_field() }}
                                                         {{ method_field('POST') }}
-                                                        <button type="submit" class="text-xs text-blue-900">Approve Grade</button>
+                                                        <button type="submit" class="text-xs text-blue-900">Approve Grade </button>
                                                     </form>
                                                 @endif
                                             </td>
