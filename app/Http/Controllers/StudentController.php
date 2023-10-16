@@ -16,13 +16,13 @@ class StudentController extends Controller
         return view('student.grade', $data);
     }
 
-    public function saveGrade($gradeId, Request $request)
+    public function saveGrade(Request $request)
     {
-        $grade = StudentSubject::where('id', $gradeId)->first();
+        $grade = StudentSubject::where('id', $request->get('gradeId'))->first();
 
         $grade->grade = $request->get('grade');
         $grade->save();
 
-        return redirect(route('grades'));
+        return redirect()->back();
     }
 }

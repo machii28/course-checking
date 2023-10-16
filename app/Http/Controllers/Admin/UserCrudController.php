@@ -79,7 +79,8 @@ class UserCrudController extends CrudController
             ->label('User Role')
             ->type('select_from_array')
             ->options([
-                'professor' => 'Professor',
+                'admin' => 'Registrar',
+                'professor' => 'Teacher',
                 'student' => 'Student'
             ]);
 

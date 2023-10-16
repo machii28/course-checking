@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <h1 class="text-2xl">Course Checking</h1>
+            <div class="mx-auto text-center">
+                <img src="/image/logo.png" height="200px" width="200px" alt="">
+                <h1 class="text-2xl">Course Checking</h1>
+            </div>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

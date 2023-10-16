@@ -12,19 +12,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-
                     @if (auth()->user()->role === 'student')
                         <x-nav-link href="{{ route('grades') }}" :active="request()->routeIs('grades')">
-                            {{ __('Grades') }}
+                            {{ __('Course Checking') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('grades') }}" :active="request()->routeIs('grades')">
+                            {{ __('Advised Subjects') }}
                         </x-nav-link>
                     @endif
 
                     @if (auth()->user()->role === 'professor')
-                        <x-nav-link href="{{ route('student') }}" :active="request()->routeIs('student')">
-                            {{ __('Students') }}
+                        <x-nav-link href="{{ route('upload-grades') }}" :active="request()->routeIs('upload-grades')">
+                            {{ __('Upload Grades') }}
                         </x-nav-link>
                     @endif
                 </div>

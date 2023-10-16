@@ -33,9 +33,13 @@ Route::middleware([
         StudentController::class, 'index'
     ])->name('grades');
 
-    Route::post('/{gradeId}/save-grade', [
+    Route::post('/save-grade', [
         StudentController::class, 'saveGrade'
     ])->name('grades.save');
+
+    Route::get('/upload-grades', [
+        ProfessorController::class, 'uploadGrades'
+    ])->name('upload-grades');
 
     Route::get('/students', [
         ProfessorController::class, 'index'

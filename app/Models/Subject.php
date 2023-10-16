@@ -15,11 +15,19 @@ class Subject extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'prerequisite_subject_id',
+        'course_description',
+        'course_code'
     ];
 
     public function students(): HasMany
     {
         return $this->hasMany(Student::class, 'student_id');
+    }
+
+    public function preRequisite(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class, 'prerequisite_subject_id', 'id');
     }
 }

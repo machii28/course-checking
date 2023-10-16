@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SubjectRequest;
+use App\Http\Requests\CurriculumRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class SubjectCrudController
+ * Class CurriculumCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SubjectCrudController extends CrudController
+class CurriculumCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class SubjectCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Subject::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/subject');
-        CRUD::setEntityNameStrings('subject', 'subjects');
+        CRUD::setModel(\App\Models\Curriculum::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/curriculum');
+        CRUD::setEntityNameStrings('curriculum', 'curriculum');
     }
 
     /**
@@ -40,15 +40,6 @@ class SubjectCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
-
-
-        $this->crud->setColumnDetails('prerequisite_subject_id', [
-            'label' => 'Pre-requisite Subject',
-            'type' => 'select',
-            'entity' => 'preRequisite',
-            'attribute' => 'name',
-            'model' => 'App\Models\Subject'
-        ]);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -64,20 +55,9 @@ class SubjectCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SubjectRequest::class);
+        CRUD::setValidation(CurriculumRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
-        $this->crud->field([
-            'label' => 'Pre-requisite Subject',
-            'type' => 'select',
-            'name' => 'prerequisite_subject_id',
-            'entity' => 'preRequisite',
-            'model' => 'App\Models\Subject',
-            'attribute' => 'name',
-            'options' => (function ($query) {
-                return $query->orderBy('name', 'ASC')->get();
-            })
-        ]);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
