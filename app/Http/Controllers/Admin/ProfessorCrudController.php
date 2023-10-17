@@ -28,7 +28,7 @@ class ProfessorCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Professor::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/professor');
-        CRUD::setEntityNameStrings('professor', 'professors');
+        CRUD::setEntityNameStrings('teacher', 'teachers');
     }
 
     public function index()
@@ -48,7 +48,7 @@ class ProfessorCrudController extends CrudController
     {
         $this->crud->addColumn([
             'name' => 'user.name', // Use the relationship name and attribute to access the user's name
-            'label' => 'Professor',
+            'label' => 'Teacher',
         ]);
 
         /**
